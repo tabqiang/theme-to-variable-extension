@@ -1,4 +1,12 @@
 console.log("Hello from content.js");
+
+//点击时触发
+// chrome.action.onClicked.addListener((tab) => {
+//   console.log(tab);
+//   console.log("onclick ");
+//   console.log("onclick ");
+// });
+
 //定义一个函数，收集页面自定义的css属性
 function getCustomCss() {
   let customProperties = {};
@@ -42,38 +50,25 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
 });
 
+// function insertCSS() {
+//   const link = document.createElement("link");
+//   link.rel = "stylesheet";
+//   link.type = "text/css";
+//   link.href = chrome.runtime.getURL("theme-to-variable.css");
+//   document.head.appendChild(link);
+// }
+// insertCSS();
+
 let popupInstance = null;
 function showPopup(properties) {
   if (!popupInstance) {
     popupInstance = document.createElement("div");
-    popupInstance.style.position = "fixed";
-    popupInstance.style.top = "20%";
-    popupInstance.style.left = "10%";
-    popupInstance.style.width = "80%";
-    popupInstance.style.height = "500px";
-    popupInstance.style.backgroundColor = "white";
-    popupInstance.style.zIndex = "9999";
-    popupInstance.style.display = "flex";
-    popupInstance.style.justifyContent = "center";
-    popupInstance.style.alignItems = "center";
-    popupInstance.style.flexDirection = "column";
-    popupInstance.style.boxShadow = "0 4px 8px rgba(0, 0, 0, 0.1)";
-    popupInstance.style.borderRadius = "8px";
-    popupInstance.style.padding = "20px";
-    popupInstance.style.overflowY = "auto";
+    popupInstance.className = "theme-context-box theme-to-variable popup";
 
     // 创建关闭按钮
     const closeButton = document.createElement("button");
     closeButton.textContent = "关闭";
-    closeButton.style.position = "absolute";
-    closeButton.style.top = "10px";
-    closeButton.style.right = "10px";
-    closeButton.style.backgroundColor = "#f44336";
-    closeButton.style.color = "white";
-    closeButton.style.border = "none";
-    closeButton.style.padding = "10px";
-    closeButton.style.borderRadius = "5px";
-    closeButton.style.cursor = "pointer";
+    closeButton.className = "theme-to-variable close-button";
     closeButton.addEventListener("click", () => {
       document.body.removeChild(popupInstance);
       popupInstance = null;
@@ -92,10 +87,13 @@ function showPopup(properties) {
   }
 
   popupInstance.innerHTML = `
-    <h1 style="font-size:40px;font-weight:bold">Custom CSS Properties</h1>
+    <h1  class="title">Custom CSS Properties</h1>
     <ul>
       ${properties
-        .map(([property, value]) => `<li>${property}: ${value}</li>`)
+        .map(
+          ([property, value]) =>
+            `<li class ="css-item">${property}: ${value}</li>`
+        )
         .join("")}
     </ul>
   `;
