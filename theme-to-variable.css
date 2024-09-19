@@ -15,7 +15,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   padding: 20px;
-  overflow-y: auto;
+  overflow-y: hidden;
 }
 .theme-to-variable h1 {
   font-size: 1.5rem;
@@ -73,7 +73,7 @@
       rgba(168, 239, 255, 1),
       transparent 30%
     );
-    animation: rotate 10s linear infinite;
+    animation: rotate 6s linear infinite;
   }
 
   &::after {

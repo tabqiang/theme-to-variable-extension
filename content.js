@@ -1,5 +1,14 @@
 console.log("Hello from content.js");
 
+// 监听来自后台脚本的消息
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.action === "showPopup") {
+    console.log("Received message to show popup");
+    const customProperties = getCustomCss();
+    showPopup(customProperties);
+    sendResponse({ status: "Popup shown" });
+  }
+});
 //点击时触发
 // chrome.action.onClicked.addListener((tab) => {
 //   console.log(tab);

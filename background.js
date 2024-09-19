@@ -1,5 +1,17 @@
 chrome.runtime.onInstalled.addListener(() => {
   console.log("Extension installed");
+  console.log(chrome.action);
+});
+chrome.action.onClicked.addListener((tab) => {
+  console.log("扩展程序图标被点击");
+  // 发送消息给内容脚本
+  chrome.tabs.sendMessage(tab.id, { action: "showPopup" }, (response) => {
+    if (chrome.runtime.lastError) {
+      console.error(chrome.runtime.lastError);
+    } else {
+      console.log("消息发送成功", response);
+    }
+  });
 });
 
 //接收来自content.js的消息
