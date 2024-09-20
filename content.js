@@ -34,11 +34,21 @@ function getCustomCss() {
   return customProperties;
 }
 
-//定义事件类型，调用getCustomCss，发送给background.js
-chrome.runtime.sendMessage({
-  type: "GET_CUSTOM_CSS",
-  customProperties: getCustomCss(),
+//receive collectColor message from popup.js
+chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+  if (message.type === "COLLECT_COLOR") {
+    console.log("collect color");
+    const customProperties = getCustomCss();
+    console.log(customProperties);
+    chrome.storage.local.set({ customProperties });
+  }
 });
+
+//定义事件类型，调用getCustomCss，发送给background.js
+// chrome.runtime.sendMessage({
+//   type: "GET_CUSTOM_CSS",
+//   customProperties: getCustomCss(),
+// });
 
 //接收来自popup.js的消息，找customProperties属性中的值，探讨显示和message中的颜色一样的属性
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
