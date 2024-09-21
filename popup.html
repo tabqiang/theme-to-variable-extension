@@ -1,27 +1,32 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Color Picker</title>
+    <link rel="stylesheet" href="popup.css" />
     <style>
       body {
         width: 200px;
-        height: 100px;
+        height: 133px;
         display: flex;
-        justify-content: center;
-        align-items: center;
+        width: 130px;
+        height: 133px;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
         font-family: Arial, sans-serif;
-      }
-      button {
-        padding: 10px 20px;
-        font-size: 16px;
+        background: linear-gradient(to bottom, #00c996, #003d4d);
       }
     </style>
   </head>
   <body>
-    <button id="collectColor">Collect Color</button>
-    <!-- 是否已经收集颜色 -->
-    <div id="color">No</div>
     <button id="pickColorButton">Pick Color</button>
+    <button id="collectColor">Collect Color</button>
+    <!-- 显示收集状态：Pending和Success -->
+    <div id="collectStatus" class="status-tag pending">Pending</div>
+
     <script src="popup.js"></script>
   </body>
 </html>

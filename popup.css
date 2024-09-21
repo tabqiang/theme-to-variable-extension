@@ -1,0 +1,45 @@
+body {
+  font-family: Arial, sans-serif;
+  padding: 10px;
+  background-color: #f0f0f0;
+}
+
+#color {
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+.status-tag {
+  padding: 8px 11px;
+  border-radius: 4px;
+  text-align: center;
+  margin-top: 7px;
+}
+
+.status-tag.pending {
+  background-color: #c19c30;
+  color: #fff;
+}
+
+.status-tag.success {
+  background-color: #4caf50;
+  color: #fff;
+}

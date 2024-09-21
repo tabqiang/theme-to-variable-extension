@@ -1,8 +1,10 @@
 document.addEventListener("DOMContentLoaded", () => {
   // 从 Chrome 存储中读取信息
-  chrome.storage.local.get("color", (data) => {
-    if (data.color) {
-      document.getElementById("color").innerHTML = data.color;
+  chrome.storage.local.get("colorCollected", (data) => {
+    if (data.colorCollected) {
+      const statusElement = document.getElementById("collectStatus");
+      statusElement.textContent = "Success";
+      statusElement.classList.add("success");
     }
   });
 });
@@ -35,18 +37,28 @@ document.getElementById("pickColorButton").addEventListener("click", () => {
 
 //collectColor
 document.getElementById("collectColor").addEventListener("click", () => {
-  //id时color的div设置成Y
-  document.getElementById("color").innerHTML = "Y";
+  const statusElement = document.getElementById("collectStatus");
+  statusElement.textContent = "Waiting...";
+  statusElement.classList.remove("success");
+  statusElement.classList.add("pending");
 
   // 保存信息到 Chrome 存储
-  chrome.storage.local.set({ color: "Y" }, () => {
-    console.log("Color saved");
+  chrome.storage.local.set({ colorCollected: true }, () => {
+    console.log("Color Collected");
   });
 
   chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
     console.log("tabs", tabs);
-    chrome.tabs.sendMessage(tabs[0].id, {
-      type: "COLLECT_COLOR",
-    });
+    chrome.tabs.sendMessage(
+      tabs[0].id,
+      {
+        type: "COLLECT_COLOR",
+      },
+      () => {
+        statusElement.textContent = "Success";
+        statusElement.classList.remove("pending");
+        statusElement.classList.add("success");
+      }
+    );
   });
 });
